@@ -34,12 +34,13 @@ class Program {
       sheet: {
         cred,
         id,
+        num_of_rows,
       },
     } = argv;
 
     console.log(`\nRetrieving ${colors.green('[Google Sheet]')} data...`);
     const gsheets = new GSheets(cred);
-    const data = await gsheets.get(id);
+    const data = await gsheets.get(id, num_of_rows);
 
     console.log(logSymbols.success, 'Successfully retrieved Google sheet data. \n');
 
@@ -132,6 +133,12 @@ class Program {
 
       if (!sheet.cred) {
         errs.push('`sheet.cred` argument is required.');
+      }
+
+      if (!sheet.num_of_rows) {
+        sheet.num_of_rows = 'A1:Z1000';
+      } else {
+        sheet.num_of_rows = 'A1:Z' + sheet.num_of_rows;
       }
     }
 

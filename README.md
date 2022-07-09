@@ -20,6 +20,15 @@ This package makes it easy use to maintain your firebase database (Firestore) us
 
 Installing Build Tools as a global module will give you command-line access to all tasks available.
 
+You can install locally by typing the following in your terminal:
+
+```bash
+npm i -g install-local
+```
+```bash
+npm i -g install-local ..\firesheets\
+```
+
 You can install globally by typing the following in your terminal:
 
 ```bash
@@ -47,11 +56,17 @@ Arguments allowed are:
 | Argument | Type | Description |
 |--------|--------|--------|
 | `sheet.id` | String | Sheet ID of your `Google Sheet`.
-| `sheet.cred` | String | Full path to your `Google Credential`. You will need to enable your `Google Sheets API`. Check out [here](https://developers.google.com/sheets/api/quickstart/nodejs) on a quick way to enable it.
+| `sheet.cred` | String | Full path to your `Google Credential`. You will need to enable your `Google Sheets API`. Check out [here](https://developers.google.com/sheets/api/
+| `sheet.num_of_rows` | String | Number of rows to import. Default is 1000 i.e. A1:Z1000
 | `db.name`| String | Name of your `Firestore` database.
 | `db.cred`| String | Full path to your `Firebase Credential`. Check out [here](https://firebase.google.com/docs/admin/setup) for more information on how to generate a private key file for your service account.
 
 Example usage of arguments:
+
+
+```bash
+firesheets --sheet.id 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms --sheet.cred /Users/john/.google/credentials.json --sheet.num_of_rows 3255 --db.name firesheets-9e63f --db.cred /Users/john/.firebase/firesheets-9e63f-firebase-adminsdk-abcdef-ghi.json
+```
 
 ```bash
 firesheets --sheet.id 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms --sheet.cred /Users/john/.google/credentials.json --db.name firesheets-9e63f --db.cred /Users/john/.firebase/firesheets-9e63f-firebase-adminsdk-abcdef-ghi.json
