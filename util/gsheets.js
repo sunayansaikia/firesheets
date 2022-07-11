@@ -165,12 +165,28 @@ class GSheets {
         let dataRow = {};
 
         row.map((cell, j) => {
+          console.log(cell)
           // Row 1 is restricted for column names
           if (i === 0) {
-            const extractType = cell.match(/<([^)]+)>/);
-            const type = StringConverter.trim(extractType ? extractType[1] : 'String');
-            const value = StringConverter.toCamelCase(StringConverter.trim(cell.replace(`<${type}>`, '')));
-            headers.push({value, type});
+            const extractAliasAndType = cell.match(/<([^)]+)>/);
+          console.log(extractAliasAndType)
+            const splittedExtractAliasAndType = extractAliasAndType[1].split(",");
+           //throw new Error('Valid token not returned');
+            //alias is a good name that can be used as field names in firestore
+            const alias = StringConverter.trim(extractAliasAndType ?splittedExtractAliasAndType[0] : 'UNKNOWN');
+            const type = StringConverter.trim(extractAliasAndType ? splittedExtractAliasAndType[1] : 'String');
+          
+            const value = StringConverter.toCamelCase(StringConverter.trim(cell.replace(`<${alias},${type}>`, '')));
+            if(alias != 'UNKNOWN'){
+              console.log("alias:" + value+","+type)
+              console.log("headers:" + headers)
+              //headers.push({value, type});
+              throw new Error('Valid token not returned');
+
+            } else {
+              console.log("non alias:" + value+","+type)
+              headers.push({value, type});
+            }
           } else {
             const header = headers[j];
 
